@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Створити архів</title>
+</head>
+<body>
+    <h1>Створити архів</h1>
+    <form id="create-archive-form">
+        <label for="archive_name">Назва архіву:</label>
+        <input type="text" id="archive_name" name="archive_name">
+        <br>
+        <label for="files">Файли:</label>
+        <input type="file" id="files" name="files" multiple>
+        <br>
+        <button type="submit">Створити</button>
+    </form>
+    <a href="/">Повернутися на головну</a>
+
+    <script>
+        document.getElementById('create-archive-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const files = document.getElementById('files').files;
+            let filesList = [];
+            for (let i = 0; i < files.length; i++) {
+                filesList.push(files[i].name);
+            }
+            const archiveName = document.getElementById('archive_name').value;
+            fetch('/create_archive', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ archive_name: archiveName, files: filesList })
+            }).then(response => {
+                if (response.ok) {
+                    alert('Архів успішно створений!');
+                    window.location.href = '/';
+                } else {
+                    response.json().then(data => {
+                        alert(`Помилка при створенні архіву: ${data.error}`);
+                    });
+                }
+            }).catch(error => {
+                alert(`Помилка при створенні архіву: ${error}`);
+            });
+        });
+    </script>
+</body>
+</html>

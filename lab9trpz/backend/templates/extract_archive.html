@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розпакувати архів</title>
+</head>
+<body>
+    <h1>Розпакувати архів</h1>
+    <form action="/extract_archive" method="post">
+        <label for="archive_name">Назва архіву:</label>
+        <input type="text" id="archive_name" name="archive_name">
+        <br>
+        <label for="destination_folder">Папка призначення:</label>
+        <input type="text" id="destination_folder" name="destination_folder">
+        <br>
+        <button type="submit">Розпакувати</button>
+    </form>
+    <a href="/">Повернутися на головну</a>
+</body>
+</html>
